@@ -3,7 +3,7 @@
 NAME = sokoban
 
 SRCS = main.c \
-	fichier.c 
+	fonction.c 
 
 
 all: $(NAME)
