@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include "fonction.h"
+#include "print_tab.h"
 
 int main()
 {
@@ -15,37 +17,42 @@ int main()
     printf("Les touches sont les suivantes :\n [Z] pour monter d'une case\n [Q] pour aller à Gauche\n [S] pour aller en bas\n [D] pour aller à droite\n");
     printf("Bon jeu à toi !\n\n");
     sleep(3);
-    printf(" ##########\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" #        #\n");
-    printf(" ##########\n");
-}
+    
+    char **game_board = tableau();  // Création du tableau de jeu
+    print_tab(game_board);          // Affichage du tableau
+    
+    char mouvement;
+    while(1) {
+        // Lire le caractère sans appuyer sur Entrée
+        system("stty raw");
+        mouvement = getchar();
+        system("stty cooked");
+        
+        // Quitter si on appuie sur 'x'
+        if(mouvement == 'x') {
+            break;
+        }
+        
+        // Si le mouvement est valide (zqsd), déplacer le joueur
+        if(mouvement == 'z' || mouvement == 'q' || mouvement == 's' || mouvement == 'd') {
+            if(deplacer_joueur(game_board, mouvement)) {
+                system("clear");  // Effacer l'écran
+                print_tab(game_board);  // Réafficher le tableau
+                
+                // Vérifier si le joueur a gagné
+                if(est_gagne(game_board)) {
+                    printf("\nFélicitations %s ! Tu as gagné ! 🎉\n", prenom);
+                    break;
+                }
+            }
+        }
+    }
 
-int main()
-{
-	char ** tableau = malloc(4 * sizeof(*tableau));
-	tableau[3] = NULL;
-
-	tableau[0] = str_cpy("La vie");
-	tableau[1] = str_cpy("l'univers");
-	tableau[2] = str_cpy("et tout le reste.");
-
-	print_tab(tableau);
-
-	int i = 0;
-
-	while(tableau[i] != NULL)
-	{
-		free(tableau[i]);
-		i = i + 1;
-	}
-
-	free(tableau);
-	exit(0);
+    // Libération de la mémoire à la fin
+    int i = 0;
+    while(game_board[i] != NULL) {
+        free(game_board[i]);
+        i++;
+    }
+    free(game_board);
 }
