@@ -14,7 +14,9 @@ int main()
     printf("Bonjour %s ! \nPour prouver que tu es bon dans un domaine (potentiellement le seul),\n", prenom);
     printf("nous te proposons de réussir ce niveau de Sokoban !\n\n");
     sleep(3);
-    printf("Les touches sont les suivantes :\n [Z] pour monter d'une case\n [Q] pour aller à Gauche\n [S] pour aller en bas\n [D] pour aller à droite\n");
+    printf("Les touches sont les suivantes :\n [Z] pour monter d'une case\n [Q] pour aller à Gauche\n [S] pour aller en bas\n [D] pour aller à droite\n\n");
+    printf("Pour rappel, pour gagner tu dois mettre la boite [B] sur la cible [X] !\n");
+    printf("Attention à ne pas marcher sur la cible, sinon c'est ciao !");
     printf("Bon jeu à toi !\n\n");
     sleep(3);
     
@@ -38,6 +40,12 @@ int main()
             if(deplacer_joueur(game_board, mouvement)) {
                 system("clear");  // Effacer l'écran
                 print_tab(game_board);  // Réafficher le tableau
+                
+                // Vérifier si le joueur a perdu (P est sur X)
+                if(est_perdu(game_board)) {
+                    printf("\nGame Over %s ! Tu as perdu en marchant sur la cible ! 💀\n", prenom);
+                    return 0;
+                }
                 
                 // Vérifier si le joueur a gagné
                 if(est_gagne(game_board)) {
