@@ -16,7 +16,7 @@ int main()
     sleep(3);
     printf("Les touches sont les suivantes :\n [Z] pour monter d'une case\n [Q] pour aller à Gauche\n [S] pour aller en bas\n [D] pour aller à droite\n\n");
     printf("Pour rappel, pour gagner tu dois mettre la boite [B] sur la cible [X] !\n");
-    printf("Attention à ne pas marcher sur la cible, sinon c'est ciao !");
+    printf("Attention à ne pas marcher sur la cible, sinon c'est ciao ! ");
     printf("Bon jeu à toi !\n\n");
     sleep(3);
     
