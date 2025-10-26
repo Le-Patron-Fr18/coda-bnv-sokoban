@@ -77,21 +77,6 @@ char** tableau(void)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-//Logique du tableau (back)
-
-
-
-
 // Fonction pour trouver la position du joueur
 void trouve_joueur(char **board, int *x, int *y) {
     for(int i = 0; board[i] != NULL; i++) {
@@ -218,14 +203,3 @@ int deplacer_joueur(char **board, char direction) {
     
     return 1;
 }
-
-
-//fonction d'affichage du personnage 
-// void affichage_perso()
-
-
-
-
-//fonction de la caisse en mouvement
-
-//fonction d'affichage de la caisse

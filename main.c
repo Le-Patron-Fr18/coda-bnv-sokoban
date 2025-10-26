@@ -9,16 +9,16 @@
 int main()
 {
     char * prenom = malloc(100 * sizeof(char));
-    printf("Quel est ton prénom ? (choisis le bien 🤡)\n");
+    printf("Quel est ton prénom ?\n");
     scanf("%s", prenom);
     printf("Bonjour %s ! \nPour prouver que tu es bon dans un domaine (potentiellement le seul),\n", prenom);
     printf("nous te proposons de réussir ce niveau de Sokoban !\n\n");
-    sleep(3);
+    sleep(5);
     printf("Les touches sont les suivantes :\n [Z] pour monter d'une case\n [Q] pour aller à Gauche\n [S] pour aller en bas\n [D] pour aller à droite\n\n");
     printf("Pour rappel, pour gagner tu dois mettre la boite [B] sur la cible [X] !\n");
-    printf("Attention à ne pas marcher sur la cible, sinon c'est ciao ! ");
+    printf("BONUS ! Attention à ne pas marcher sur la cible, sinon c'est ciao ! ");
     printf("Bon jeu à toi !\n\n");
-    sleep(3);
+    sleep(8);
     
     char **game_board = tableau();  // Création du tableau de jeu
     print_tab(game_board);          // Affichage du tableau
@@ -43,13 +43,13 @@ int main()
                 
                 // Vérifier si le joueur a perdu (P est sur X)
                 if(est_perdu(game_board)) {
-                    printf("\nGame Over %s ! Tu as perdu en marchant sur la cible ! 💀\n", prenom);
+                    printf("\nC'est pas pro ça %s ! T'as été sur la cible ! Fallait lire les règles 🤡\n", prenom);
                     return 0;
                 }
                 
                 // Vérifier si le joueur a gagné
                 if(est_gagne(game_board)) {
-                    printf("\nFélicitations %s ! Tu as gagné ! 🎉\n", prenom);
+                    printf("\nFélicitations %s ! Tu n'es pas si nul que ça finalement...\n", prenom);
                     break;
                 }
             }
