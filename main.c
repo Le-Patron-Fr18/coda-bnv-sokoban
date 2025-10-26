@@ -22,8 +22,22 @@ int main()
     
     char **game_board = tableau();  // Création du tableau de jeu
     print_tab(game_board);          // Affichage du tableau
+
+    // Fonction locale pour sauvegarder le plateau dans end.txt
+    void save_board(char **board) {
+        FILE *f = fopen("end.txt", "w");
+        if (!f) {
+            perror("Erreur lors de l'ouverture de end.txt");
+            return;
+        }
+        for (int i = 0; board[i] != NULL; i++) {
+            fprintf(f, "%s\n", board[i]);
+        }
+        fclose(f);
+    }
     
     char mouvement;
+    int finished = 0; // flag indiquant que la partie s'est terminée
     while(1) {
         // Lire le caractère sans appuyer sur Entrée
         system("stty raw");
@@ -44,17 +58,21 @@ int main()
                 // Vérifier si le joueur a perdu (P est sur X)
                 if(est_perdu(game_board)) {
                     printf("\nC'est pas pro ça %s ! T'as été sur la cible ! Fallait lire les règles 🤡\n", prenom);
-                    return 0;
+                    finished = 1;
+                    break; // sortir de la boucle proprement pour sauvegarder et libérer
                 }
                 
                 // Vérifier si le joueur a gagné
                 if(est_gagne(game_board)) {
                     printf("\nFélicitations %s ! Tu n'es pas si nul que ça finalement...\n", prenom);
+                    finished = 1;
                     break;
                 }
             }
         }
     }
+    // Sauvegarder l'état final du plateau (écrase end.txt)
+    save_board(game_board);
 
     // Libération de la mémoire à la fin
     int i = 0;
@@ -63,4 +81,5 @@ int main()
         i++;
     }
     free(game_board);
+    (void)finished; // variable présente si besoin d'extensions futures
 }
